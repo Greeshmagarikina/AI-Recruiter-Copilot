@@ -23,7 +23,15 @@ class AnalysisRequest(BaseModel):
 
 class CopilotRequest(BaseModel):
     query: str
-
+@app.get("/")
+def root():
+    return {
+        "project": "AI Recruiter Copilot",
+        "status": "Live",
+        "version": "1.0",
+        "description": "Enterprise AI Resume Screening and Recruiter Copilot Platform"
+    }
+    
 @app.get("/api/health")
 def health_check():
     return {"status": "operational", "engine": "Gemini-2.5-Flash"}
