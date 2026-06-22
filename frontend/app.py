@@ -5,7 +5,7 @@ import plotly.express as px
 import requests
 import os
 
-BACKEND_URL = "http://localhost:8000/api"
+BACKEND_URL = "https://ai-recruiter-copilot.onrender.com/api"
 
 if "user_authenticated" not in st.session_state:
     st.session_state.user_authenticated = False
