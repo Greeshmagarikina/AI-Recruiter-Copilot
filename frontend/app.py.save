@@ -21,134 +21,36 @@ st.set_page_config(page_title="AI Resume Screening Assistant", layout="wide")
 # =========================================================
 # RECRUITER AUTHENTICATION UI GATEWAY (Routed via API)
 # =========================================================
-
 st.sidebar.header("Recruiter Authentication Suite")
 
 if not st.session_state.user_authenticated:
-
-    auth_action = st.sidebar.radio(
-        "Choose Action",
-        ["Login", "Register New Account"]
-    )
-
-    email_input = st.sidebar.text_input(
-        "Corporate Email Address"
-    )
-
-    password_input = st.sidebar.text_input(
-        "Password Secure Access Key",
-        type="password"
-    )
-
-    auth_payload = {
-        "email": email_input,
-        "password": password_input
-    }
-
-    # =====================================================
-    # REGISTER
-    # =====================================================
-
+    auth_action = st.sidebar.radio("Choose Action", ["Login", "Register New Account"])
+    email_input = st.sidebar.text_input("Corporate Email Address")
+    password_input = st.sidebar.text_input("Password Secure Access Key", type="password")
+    
+    auth_payload = {"email": email_input, "password": password_input}
+    
     if auth_action == "Register New Account":
-
         if st.sidebar.button("Create Account"):
-
-            try:
-
-                response = requests.post(
-                    f"{BACKEND_URL}/auth/signup",
-                    json=auth_payload,
-                    timeout=30
-                )
-
-                st.write("Backend URL:", BACKEND_URL)
-                st.write("Status:", response.status_code)
-                st.write("Response:", response.text)
-
-                if response.status_code == 200:
-
-                    st.sidebar.success(
-                        "Registration Success! Check email verification channels."
-                    )
-
-                else:
-
-                    try:
-                        error_msg = response.json().get(
-                            "detail",
-                            "Registration Error"
-                        )
-                    except:
-                        error_msg = response.text
-
-                    st.sidebar.error(error_msg)
-
-            except Exception as e:
-
-                st.sidebar.error(
-                    f"Backend Connection Error: {str(e)}"
-                )
-
-    # =====================================================
-    # LOGIN
-    # =====================================================
-
+            response = requests.post(f"{BACKEND_URL}/auth/signup", json=auth_payload)
+            if response.status_code == 200:
+                st.sidebar.success("Registration Success! Check email verification channels.")
+            else:
+                st.sidebar.error(response.json().get("detail", "Registration Error"))
+                
     elif auth_action == "Login":
-
         if st.sidebar.button("Sign In"):
+            response = requests.post(f"{BACKEND_URL}/auth/signin", json=auth_payload)
+            if response.status_code == 200:
+                user_data = response.json()
+                st.session_state.user_authenticated = True
+                st.session_state.user_email = user_data["email"]
+                st.session_state.user_id = user_data["user_id"]
+                st.rerun()
+            else:
+                st.sidebar.error(response.json().get("detail", "Authentication Failed"))
 
-            try:
-
-                response = requests.post(
-                    f"{BACKEND_URL}/auth/signin",
-                    json=auth_payload,
-                    timeout=30
-                )
-
-                st.write("Backend URL:", BACKEND_URL)
-                st.write("Status:", response.status_code)
-                st.write("Response:", response.text)
-
-                if response.status_code == 200:
-
-                    user_data = response.json()
-
-                    st.session_state.user_authenticated = True
-
-                    st.session_state.user_email = user_data.get(
-                        "email",
-                        email_input
-                    )
-
-                    st.session_state.user_id = user_data.get(
-                        "user_id",
-                        "unknown"
-                    )
-
-                    st.rerun()
-
-                else:
-
-                    try:
-                        error_msg = response.json().get(
-                            "detail",
-                            "Authentication Failed"
-                        )
-                    except:
-                        error_msg = response.text
-
-                    st.sidebar.error(error_msg)
-
-            except Exception as e:
-
-                st.sidebar.error(
-                    f"Backend Connection Error: {str(e)}"
-                )
-
-    st.warning(
-        "Please sign in using verified recruiter credentials to unlock system processing clusters."
-    )
-
+    st.warning("Please sign in using verified recruiter credentials to unlock system processing clusters.")
     st.stop()
 
 st.sidebar.success(f"Active Account: {st.session_state.user_email}")
