@@ -268,7 +268,7 @@ After restarting the application, a new vector database will be created automati
 ## 📂 Project Structure
 
 ```text
-AI-Resume-Screener/
+AI-Recruiter-Copilot/
 │
 ├── backend/
 │   ├── core/
