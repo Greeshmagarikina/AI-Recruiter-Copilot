@@ -82,7 +82,7 @@ Recruiter Login / Signup
             └── Email Generation
             │
             ▼
-    text-embedding-004
+    gemini-embedding-2
             │
             ▼
    ChromaDB Vector Store
