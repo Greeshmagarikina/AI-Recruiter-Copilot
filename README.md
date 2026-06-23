@@ -319,6 +319,6 @@ AI-Recruiter-Copilot/
 
 ### GREESHMA GARIKINA
 
-**AI & ML Engineer | Generative AI | NLP | LLM Applications | RAG Systems | Robotics | System Design**
+**AI & ML Engineer | Generative AI | NLP | LLM Applications | RAG Systems | System Design**
 
 ⭐ If you found this project useful, consider giving it a star on GitHub.
