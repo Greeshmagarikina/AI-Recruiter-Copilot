@@ -291,16 +291,17 @@ AI-Recruiter-Copilot/
 
 ---
 
-## 🔮 Future Improvements
+ 
+## 🔮 Future Enhancements & Roadmap
+ * **Multi-User Support & Recruiter Collaboration**
+ * **OCR & Vision-Language Model Integration**
+ * **STT / TTS Voice Interfaces**
+ * **Automated CI/CD Pipelines**
+ * **Production Testing Frameworks**
+ * **Load Balancing & Horizontal Scaling**
+ * **Cloud Vector Database Migration**
+ * **Multi-LLM Integration Orchestration**
 
-* ATS Compatibility Scoring
-* Interview Question Generation
-* Candidate Ranking Analytics
-* Multi-Organization Support
-* Team Recruiter Collaboration
-* Multi-LLM Support
-* Advanced Dashboard Analytics
-* Cloud Vector Database Integration
 
 ---
 
